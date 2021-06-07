@@ -1,0 +1,92 @@
+### GET TASK 1 
+//Retrieve the list of all the available task
+GET http://localhost:3001/api/tasks
+
+
+
+### GETS TASK 2
+ //Retrieve a list of all the tasks that fulfill a given filter
+GET http://localhost:3001/api/tasks/filter?filter=important&value=1
+
+### 
+ //Retrieve a list of all the tasks that fulfill a given filter
+GET http://localhost:3001/api/tasks/filter?filter=private&value=1
+
+###
+ //Retrieve a list of all the tasks that fulfill a given filter
+GET http://localhost:3001/api/tasks/filter?filter=completed&value=0
+
+
+###
+ //Retrieve a list of all the tasks that fulfill a given filter
+GET http://localhost:3001/api/tasks/Today
+
+###
+ //Retrieve a list of all the tasks that fulfill a given filter
+GET http://localhost:3001/api/tasks/Important
+
+###
+ //Retrieve a list of all the tasks that fulfill a given filter
+GET http://localhost:3001/api/tasks/Private
+
+###
+ //Retrieve a list of all the tasks that fulfill a given filter
+GET http://localhost:3001/api/tasks/Next%207%20Days
+###
+ //Retrieve a list of all the tasks that fulfill a given filter
+GET http://localhost:3001/api/tasks/filter?filter=completed&value=1
+
+###
+ //Retrieve a list of all the tasks that fulfill a given filter
+GET http://localhost:3001/api/tasks/filter?filter=user&value=1
+
+
+
+### GET TASK 3
+//Retrieve a task given its id
+GET http://localhost:3001/api/tasks/2
+
+
+
+### POST TASK 4
+//Create new Task
+POST http://localhost:3001/api/tasks
+Content-Type: application/json
+
+{"description": "try", "important": 0, "private": 1, "deadline": "2021-05-26 18:00", "completed": 0, "user": 1 } 
+
+
+
+### PUT TASK 5
+//Update existing Task
+PUT http://localhost:3001/api/tasks
+Content-Type: application/json
+
+{ "id": 4,"description": "Lebron-James", "important": 1, "private": 0, "deadline": "2021-06-18 10:00", "completed": 1, "user": 1 }
+
+
+
+### PUT TASK 6
+//Mark an existing task as completed/uncompleted
+PUT http://localhost:3001/api/tasks/6
+Content-Type: application/json
+
+{ "completed": 1}
+
+
+
+### DELETE TASK 7
+//Delete an existing task
+DELETE http://localhost:3001/api/tasks/10
+Content-Type: application/json
+
+
+### User login
+POST http://localhost:3001/api/sessions
+Content-Type: application/json
+
+{"username": "first@polito.it", "password": "firstStudent" } 
+
+### Logout
+DELETE http://localhost:3001/api/sessions/current
+Content-Type: application/json

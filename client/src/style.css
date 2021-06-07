@@ -1,0 +1,24 @@
+.min-height{
+    min-height: 100vh;
+}
+
+.button{
+    position: fixed; bottom: 15px; right: 15px;
+    color: #28a745;
+}
+
+.below-nav {
+    padding-top: 5rem;
+}
+
+/* Filters and projects */
+.list-group-item {
+    background-color: transparent;
+    border: transparent;
+}
+
+.list-group-item-action:hover {
+    color:white;
+    text-decoration: none;
+    background-color: #28a74679;
+}
