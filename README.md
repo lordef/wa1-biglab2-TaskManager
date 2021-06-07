@@ -2,12 +2,6 @@
 
 ## Team name: Cobrakai
 
-Team members:
-* s282505 DE FILIPPIS LORENZO
-* s290247 MICCO FERDINANDO
-* s292672 FORMISANO MICHELE
-* s292500 RENDA FRANCESCO
-
 ## Instructions
 
 A general description of the BigLab 2 is avaible in the `course-materials` repository, [under _labs_](https://github.com/polito-WA1-AW1-2021/course-materials/tree/main/labs/BigLab2/BigLab2.pdf). In the same repository, you can find the [instructions for GitHub Classroom](https://github.com/polito-WA1-AW1-2021/course-materials/tree/main/labs/GH-Classroom-BigLab-Instructions.pdf), covering this and the next BigLab.
