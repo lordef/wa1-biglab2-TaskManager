@@ -1,6 +1,7 @@
 import { Task } from "./models/Task";
 
-const url = 'http://localhost:3000';
+// const url = 'http://localhost:3000';
+const url = '';
 
 async function loadTaskList() {
     let taskList = [];    /* Creation of a list of Task for storing data from server */

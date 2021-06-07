@@ -1,12 +1,21 @@
 'use strict';
 
-const express = require('express');
-const morgan = require('morgan');  // logging middleware
+const path = require('path');
+const PORT = process.env.PORT || 3001;
 
+const express = require('express');
+const app = new express();
+const morgan = require('morgan');  // logging middleware
 const passport = require('passport'); // auth middleware
 const LocalStrategy = require('passport-local').Strategy; // username and password for login
 const session = require('express-session'); // session middleware
+const dao = require('./dao/task-dao'); // module for accessing the DB
 const userDao = require('./dao/user-dao'); // module for accessing the users in the DB
+
+
+app.use(morgan('dev'));
+app.use(express.json()); // parse the body in JSON format => populate req.body attributes 
+app.use(express.static("./client/build"));
 
 
 /*** Set up Passport ***/
@@ -41,15 +50,6 @@ passport.deserializeUser((id, done) => {
         });
 });
 
-
-const PORT = 3001;
-
-const dao = require('./dao/task-dao'); // module for accessing the DB
-
-const app = new express();
-
-app.use(morgan('dev'));
-app.use(express.json()); // parse the body in JSON format => populate req.body attributes
 
 
 // custom middleware: check if a given request is coming from an authenticated user
@@ -91,7 +91,7 @@ app.get('/api/tasks/:filter', isLoggedIn, (req, res) => {
     const filter = req.params.filter;
     //let value = req.query.value;
 
-    dao.getByFilter(req.user.id,filter)
+    dao.getByFilter(req.user.id, filter)
         .then((tasks) => { res.json(tasks); })
         .catch((error) => { res.status(500).json(error); });
 });
@@ -103,7 +103,7 @@ app.get('/api/tasks/:id', isLoggedIn, async (req, res) => {
     const id = req.params.id;
 
     try {
-        let task = await dao.getById(req.user.id,id);
+        let task = await dao.getById(req.user.id, id);
         res.json(task);
     } catch (error) {
         res.status(500).json(error);
@@ -123,7 +123,7 @@ app.post('/api/tasks', isLoggedIn, async (req, res) => {
     let user = req.user.id;
 
     try {
-        let retId = await dao.createTask(req.user.id,{ description: description, important: important, private: isPrivate, deadline: deadline, completed: completed, user: user });
+        let retId = await dao.createTask(req.user.id, { description: description, important: important, private: isPrivate, deadline: deadline, completed: completed, user: user });
         res.json(`New task's id: ` + retId);
     } catch (error) {
         res.status(500).json(error);
@@ -143,7 +143,7 @@ app.put('/api/tasks', isLoggedIn, async (req, res) => {
     let user = req.user.id;
 
     try {
-        let retId = await dao.updateTask(req.user.id,{ id: id, description: description, important: important, private: isPrivate, deadline: deadline, completed: completed, user: user });
+        let retId = await dao.updateTask(req.user.id, { id: id, description: description, important: important, private: isPrivate, deadline: deadline, completed: completed, user: user });
         res.json(`Updated task with id: ` + retId);
 
     } catch (error) {
@@ -159,7 +159,7 @@ app.put('/api/tasks/:id', isLoggedIn, async (req, res) => {
     let id = req.params.id;
 
     try {
-        let retId = await dao.updateTaskCompleted(req.user.id,id, completed);
+        let retId = await dao.updateTaskCompleted(req.user.id, id, completed);
         res.json(`Marked task with id: ` + retId);
     } catch (error) {
         res.status(500).json(error);
@@ -168,12 +168,12 @@ app.put('/api/tasks/:id', isLoggedIn, async (req, res) => {
 
 
 //Delete an existing task
-app.delete('/api/tasks/:id', isLoggedIn , async (req, res) => {
+app.delete('/api/tasks/:id', isLoggedIn, async (req, res) => {
 
     let id = req.params.id;
 
     try {
-        let retText = await dao.deleteTask(req.user.id,id);
+        let retText = await dao.deleteTask(req.user.id, id);
         res.json(retText);
     } catch (error) {
         res.status(500).json(error);
@@ -231,4 +231,10 @@ app.get('/api/sessions/current', (req, res) => {
 });
 
 
-app.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}/`));
+
+/* Endpoint to declare that any request that does not match any other endpoints send back the client React application index.html file */
+app.get('*', (req, res) => {
+    res.sendFile(path.resolve(__dirname, './client/build', 'index.html'));
+});
+
+app.listen(PORT, () => console.log(`Server running on PORT: ${PORT}`));
