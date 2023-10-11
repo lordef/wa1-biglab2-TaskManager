@@ -3,10 +3,10 @@
 ## Team name: Cobrakai
 
 Team members:
-* s282505 DE FILIPPIS LORENZO
-* s290247 MICCO FERDINANDO
-* s292672 FORMISANO MICHELE
-* s292500 RENDA FRANCESCO
+* [lordef](https://github.com/lordef)
+* [fermic98](https://github.com/fermic98)
+* [Miche998](https://github.com/Miche998)
+* [FrancescoRenda](https://github.com/FrancescoRenda)
 
 ## Instructions
 
